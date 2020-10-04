@@ -1,0 +1,5 @@
+# time filter
+# find all entries occurring @ 7 PM
+-t=".*T19:.*"
+# find all entries occurring @ 5 PM
+-t=".*T17:.*"

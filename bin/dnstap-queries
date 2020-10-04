@@ -1,0 +1,23 @@
+#!/bin/sh
+
+_append() {
+    if [ -n "$_MATCH" ]
+    then
+        _MATCH="$_MATCH && $1"
+    else
+        _MATCH="$1"
+    fi
+}
+
+_append "\$2==\"CR\""
+
+_GROUP_BUCKET="bucket=substr(\$6,2,length(\$6)-3);A[bucket]=A[bucket]+1;"
+_GROUP_PRINT="for (i in A) {print A[i], i;}"
+
+. _LIBRARY_PATH_/_APPLICATION_NAME_/cli.sh
+. _LIBRARY_PATH_/_APPLICATION_NAME_/defaults.sh
+
+# dnstap - queries
+dnstap $_DNSTAP_FILE 2>/dev/null\
+    | awk "$_MATCH {$_GROUP_BUCKET} END {$_GROUP_PRINT}"\
+    | sort -gr

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+_append() {
+    if [ -n "$_MATCH" ]
+    then
+        _MATCH="$_MATCH && $1"
+    else
+        _MATCH="$1"
+    fi
+}
+
+_append "/\"type\":\"CLIENT_RESPONSE\"/"
+
+. _LIBRARY_PATH_/_APPLICATION_NAME_/cli.response.sh
+. _LIBRARY_PATH_/_APPLICATION_NAME_/defaults.response.sh
+
+# dnstap - queries
+dnstap $_DNSTAP_FILE -j 2>/dev/null\
+    | awk "$_MATCH"\
+    | /usr/local/bin/grep -Po "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"\
+    | sort -u

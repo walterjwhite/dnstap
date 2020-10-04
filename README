@@ -1,0 +1,14 @@
+1. find unique queries for a given file        - DONE
+2. find unique queries for given files         - DONE
+
+3. find unique queries for a particular client - DONE
+
+4. qroup queries
+    by client
+    by query
+    time time
+    Count Domain    Clients
+    100X google.com 10.30.0.12 10.30.0.22
+
+6. perform whois on unique hosts
+7. identify unique hosts
